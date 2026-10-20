@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080d18">
+  <title>SecureFace | Cadastro Facial</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#">
+      <span class="brand-icon">S</span>
+      <span>Secure<span class="accent">Face</span></span>
+    </a>
+    <span class="status-pill">
+      <span id="headerDot" class="status-dot"></span>
+      <span id="headerStatus">Inicializando</span>
+    </span>
+  </header>
+
+  <main class="container">
+    <section class="intro">
+      <p class="eyebrow">VISÃO COMPUTACIONAL</p>
+      <h1>Cadastro <span class="accent">facial.</span></h1>
+      <p class="subtitle">
+        Cadastre rostos, adicione nomes posteriormente e compare-os com
+        a câmera em tempo real.
+      </p>
+    </section>
+
+    <section class="dashboard">
+      <div class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">CAPTURA AO VIVO</p>
+            <h2>Câmera</h2>
+          </div>
+          <span id="liveBadge" class="live-badge">DESLIGADA</span>
+        </div>
+
+        <div class="camera-stage">
+          <video id="camera" autoplay muted playsinline></video>
+          <canvas id="overlay"></canvas>
+
+          <div id="cameraPlaceholder" class="camera-placeholder">
+            <div class="camera-symbol">◉</div>
+            <h3>Câmera desconectada</h3>
+            <p>Conecte a câmera para detectar e cadastrar rostos.</p>
+          </div>
+        </div>
+
+        <div class="camera-actions">
+          <button id="connectBtn" class="btn btn-primary" disabled>Conectar câmera</button>
+          <button id="disconnectBtn" class="btn btn-secondary" disabled>Desconectar</button>
+        </div>
+
+        <div id="notice" class="notice" role="status" aria-live="polite">
+          Carregando os modelos de detecção e reconhecimento...
+        </div>
+
+        <div class="capture-box">
+          <p class="eyebrow">CADASTRO</p>
+          <h3>Salvar rosto detectado</h3>
+          <p class="muted">
+            Posicione apenas uma pessoa diante da câmera para evitar cadastrar
+            o rosto errado. O cadastro começa sem nome.
+          </p>
+          <button id="saveFaceBtn" class="btn btn-primary" disabled>Salvar rosto sem nome</button>
+        </div>
+      </div>
+
+      <aside class="side-column">
+        <div class="panel metric-panel">
+          <p class="eyebrow">DETECÇÃO ATUAL</p>
+          <p id="faceCount" class="metric-value">—</p>
+          <p class="metric-label">Rostos detectados</p>
+          <div class="metric-divider"></div>
+          <div class="metric-row"><span>Modelo</span><strong id="modelStatus">Carregando</strong></div>
+          <div class="metric-row"><span>Câmera</span><strong id="cameraStatus">Desconectada</strong></div>
+          <div class="metric-row"><span>Cadastros</span><strong id="savedCount">0</strong></div>
+        </div>
+
+        <div class="panel">
+          <p class="eyebrow">PRIVACIDADE</p>
+          <h2>Armazenamento local</h2>
+          <p class="muted privacy-text">
+            Os descritores faciais e os nomes ficam neste navegador.
+            Não sincronizamos os cadastros com um servidor.
+          </p>
+          <p class="muted privacy-text">
+            Não use este protótipo como único meio de segurança ou para
+            tomar decisões importantes sobre pessoas.
+          </p>
+          <button id="deleteAllBtn" class="btn btn-danger">Apagar todos os cadastros</button>
+        </div>
+      </aside>
+    </section>
+
+    <section class="panel registry-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">BASE LOCAL</p>
+          <h2>Rostos cadastrados</h2>
+        </div>
+        <span id="registryCount" class="count-badge">0 registros</span>
+      </div>
+      <p class="muted">
+        Os registros sem nome podem ser identificados depois. Os nomes são
+        etiquetas inseridas por você, não identidades verificadas.
+      </p>
+      <div id="faceRegistry" class="registry-grid">
+        <div class="empty-state">Nenhum rosto cadastrado ainda.</div>
+      </div>
+    </section>
+
+    <section class="panel events-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">ATIVIDADE</p>
+          <h2>Registro de eventos</h2>
+        </div>
+        <button id="clearLogBtn" class="text-button">Limpar</button>
+      </div>
+      <div id="eventLog" class="event-log">
+        <div class="empty-state">Os eventos aparecerão aqui.</div>
+      </div>
+    </section>
+
+    <footer>
+      <span>SecureFace · Protótipo</span>
+      <span>Dados armazenados neste navegador</span>
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.12/dist/face-api.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
